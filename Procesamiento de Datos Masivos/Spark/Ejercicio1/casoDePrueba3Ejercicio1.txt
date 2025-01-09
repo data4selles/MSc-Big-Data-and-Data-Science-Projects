@@ -1,0 +1,7 @@
+Alice;Tarjeta de crédito;100
+Alice;Tarjeta de crédito;150
+Alice;Bizum;200
+Bob;Tarjeta de crédito;201
+Luis;Bizum;300
+
+
