@@ -1,0 +1,1 @@
+Partimos de un dataset con entradas de la forma “persona;método_pago;dinero_gastado”. Y, el objetivo de este ejercicio es obtener para cada persona del conjunto de datos, el dinero total gastado con Tarjeta de Crédito.
