@@ -1,0 +1,11 @@
+
+cqlsh> create keyspace alejandroselles with replication = {'class':'SimpleStrategy','replication_factor':1};
+cqlsh> use alejandroselles;
+cqlsh:alejandroselles> create table Tabla1(paciente_nombre text, paciente_dni int, paciente_fecha_nac date, paciente_direccion text, paciente_tlf text, paciente_alergias set<text>, PRIMARY KEY(paciente_nombre, paciente_dni));
+cqlsh:alejandroselles> create table Tabla2(medico_dni int, cita_id int, cita_fecha_hora date, cita_motivo text, PRIMARY KEY(medico_dni, cita_id));
+cqlsh:alejandroselles> create table Tabla3(paciente_dni int, cita_id int, tratamiento_id int, tratamiento_descripcion text, tratamiento_costo float, PRIMARY KEY(paciente_dni, cita_id, tratamiento_id));
+cqlsh:alejandroselles> create table Tabla4(paciente_nombre text, paciente_dni int, numcitas counter, PRIMARY KEY(paciente_nombre, paciente_dni));
+cqlsh:alejandroselles> create table Tabla5(receta_fecha_emision date, receta_id int, medicamento_codigo int, medicamento_nombre text, medicamento_dosis text, PRIMARY KEY(receta_fecha_emision, receta_id, medicamento_codigo));
+cqlsh:alejandroselles> create table Tabla6(paciente_alergia text, paciente_dni int, paciente_nombre text, paciente_alergias set<text>, PRIMARY KEY(paciente_alergia, paciente_dni));
+cqlsh:alejandroselles> create table soporte_paciente(paciente_dni int, paciente_nombre text, paciente_fecha_nac date, paciente_direccion text, paciente_tlf text, paciente_alergias set<text>, PRIMARY KEY(paciente_dni));
+cqlsh:alejandroselles> create table soporte_medico(medico_dni int, medico_nombre text, medico_fecha_nac date, medico_tlf text, medico_especialidades set<text>, PRIMARY KEY(medico_dni));
