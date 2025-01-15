@@ -1,0 +1,1 @@
+Partimos de un dataset con entradas de la forma “persona;método_pago;dinero_gastado”. Y, queremos devolver 2 cosas. Por un lado, el número de compras que realiza una persona con un método de pago diferente a la tarjeta que superan los 1500 euros; y, por otro lado, el número de compras que realiza una persona sin tarjeta que NO superan los 1500 euros. 
