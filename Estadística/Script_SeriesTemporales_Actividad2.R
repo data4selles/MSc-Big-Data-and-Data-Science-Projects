@@ -79,6 +79,30 @@ ggplot(train_last36, aes(x = DATE, y = IPN31152N)) +
   theme(plot.title = element_text(hjust = 0.5, face = "bold"),
         axis.text.x = element_text(angle = 45, hjust = 1))
 
+# Asegurar que DATE es de tipo Date
+train <- train %>%
+  mutate(DATE = as.Date(DATE))
+
+# Filtrar los últimos 36 meses
+train_last36 <- train %>%
+  filter(DATE >= max(DATE) %m-% months(35)) %>%
+  mutate(Year = factor(year(DATE)),  # Extraer el año como factor
+         Month = format(DATE, "%b"))  # Extraer el mes como nombre corto
+
+# Asegurar que los meses están en el orden correcto
+train_last36$Month <- factor(train_last36$Month, levels = format(seq(as.Date("2023-01-01"), by = "month", length.out = 12), "%b"))
+
+# Graficar con diferentes colores por año
+ggplot(train_last36, aes(x = Month, y = IPN31152N, color = Year, group = Year)) + 
+  geom_line(size = 1.2) +  
+  geom_point(size = 2) +
+  labs(title = "Ventas de Helado en los Últimos 3 Años", 
+       x = "Mes", y = "Ventas", color = "Año") +
+  theme_minimal(base_size = 14) +  
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"),
+        axis.text.x = element_text(angle = 45, hjust = 1))
+
+
 # Descomposiciones ----------------
 # Descomposición de la serie temporal
 ts_train <- ts(train$IPN31152N, start = c(year(min(train$DATE)), month(min(train$DATE))), frequency = 12)
@@ -714,7 +738,7 @@ pacf(ts_diff_seasonal, main = "PACF - Serie Diferenciada Estacional", col = "dar
 
 # Ajustar un modelo SARIMA(p,d,q)(P,D,Q)[s]
 modelo_sarima <- Arima(ts_train, order = c(13,1,4), 
-                       seasonal = list(order = c(3,0,1), period = 7))
+                       seasonal = list(order = c(2,1,2), period = 7))
 
 # Resumen del modelo
 summary(modelo_sarima)
